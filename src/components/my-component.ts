@@ -19,7 +19,7 @@ export class MyComponent extends LitElement {
 
   render() {
     return html`
-      asdasdasd
+      asdasdasd small change
       <div class="message">${this.message}</div>
       ich habe hier dann hot reload
     `;
