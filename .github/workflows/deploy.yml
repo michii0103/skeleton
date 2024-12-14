@@ -31,4 +31,11 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan 45.129.183.223 >> ~/.ssh/known_hosts
-          ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "rm -rf /root/skeleton && git clone https://github.com/michii0103/skeleton.git /root/skeleton && cd /root/skeleton && npm install && pm2 restart all"
+          ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "
+            rm -rf /skeleton &&
+            git clone https://github.com/michii0103/skeleton.git /skeleton &&
+            cd /skeleton &&
+            npm install &&
+            npm run build &&
+            pm2 restart all
+          "
