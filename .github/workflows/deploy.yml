@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch: # Manuelles Starten aktivieren
+    inputs:
+      deploy_on_server:
+        description: "Production Deployment"
+        required: false
+        default: "false" # Standardmäßig PM2-Start überspringen
 
 jobs:
   deploy:
@@ -24,7 +30,7 @@ jobs:
           npm run build
 
       - name: Deploy to Server
-        if: ${{ github.event.inputs.execute == 'true' }} # Nur ausführen, wenn der Knopf geklickt wurde
+        if: ${{ inputs.deploy_on_server == 'true' }} # Nur ausführen, wenn der Knopf geklickt wurde
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
         run: |
