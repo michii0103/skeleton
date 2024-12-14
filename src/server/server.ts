@@ -26,6 +26,9 @@ ws_server.on("connection", (ws_client) => {
   ws_client.on("message", (message) => {
     const msg = JSON.parse(message.toString());
     console.log("Vom Client empfangen:", msg);
+    process.stdout.write(
+      `DEBUG: Vom Client empfangen: ${JSON.stringify(msg)}\n`
+    );
     ws_client.send(
       JSON.stringify({ event: "response", data: `Echo: ${msg.data}` })
     );
