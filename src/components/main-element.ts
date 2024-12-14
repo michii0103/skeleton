@@ -21,11 +21,10 @@ export class MainElement extends LitElement {
 
   render() {
     return html`
-      asdasdasd small changeasdasdasd asdasd
+      Successfully deployed!
       <div class="message">${this.message}</div>
       <prosemirror-editor></prosemirror-editor>
       <x-button> Mein Custom Button </x-button>
-      ich habe hier dann hot reload
     `;
   }
 }
