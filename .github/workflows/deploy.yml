@@ -23,14 +23,14 @@ jobs:
           npm install
           npm run build
 
-          - name: Deploy built files to Server
-          env:
-            SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          run: |
-            mkdir -p ~/.ssh
-            echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
-            chmod 600 ~/.ssh/id_ed25519
-            ssh-keyscan 45.129.183.223 >> ~/.ssh/known_hosts
-            ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "mkdir -p /root/skeleton"
-            scp -i ~/.ssh/id_ed25519 -r ./dist/* root@45.129.183.223:/root/skeleton
-            ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "cd /root/skeleton && pm2 restart all"
+      - name: Deploy built files to Server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan 45.129.183.223 >> ~/.ssh/known_hosts
+          ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "mkdir -p /root/skeleton"
+          scp -i ~/.ssh/id_ed25519 -r ./dist/* root@45.129.183.223:/root/skeleton
+          ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "cd /root/skeleton && pm2 restart all"
