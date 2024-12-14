@@ -13,7 +13,7 @@ on:
 
 jobs:
   deploy:
-    if: ${{ inputs.deploy_on_server == 'true' }} # Bedingung auf Job-Ebene
+    if: ${{ inputs.deploy_on_server || 'false' == 'true' }}
     runs-on: ubuntu-latest
 
     steps:
