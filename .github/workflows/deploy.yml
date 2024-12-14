@@ -30,7 +30,7 @@ jobs:
           npm run build
 
       - name: Deploy to Server
-        if: ${{ inputs.deploy_on_server == 'true' }} # Nur ausführen, wenn der Knopf geklickt wurde
+        if: ${{ inputs.deploy_on_server == 'true' }}
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
         run: |
