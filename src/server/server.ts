@@ -57,7 +57,7 @@ ws_server.on("connection", (ws_client) => {
 });
 
 // Server starten
-const PORT = isProduction ? 443 : 8080; // 443 für Prod, 8080 für Dev
+const PORT = 8080;
 server.listen(PORT, () => {
   console.log(`Server läuft auf http://localhost:${PORT}`);
 });
