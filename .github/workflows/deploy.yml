@@ -23,9 +23,6 @@ jobs:
           npm install
           npm run build
 
-      - name: Install rsync
-        run: sudo apt-get update && sudo apt-get install -y rsync
-
       - name: Deploy built files to Server
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
@@ -34,5 +31,5 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan 45.129.183.223 >> ~/.ssh/known_hosts
-          rsync -avz -e "ssh -i ~/.ssh/id_ed25519" ./dist/ root@45.129.183.223:/skeleton/dist
+          scp -i ~/.ssh/id_ed25519 -r ./dist/* root@45.129.183.223:/skeleton/dist
           ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "cd /skeleton && pm2 restart all"
