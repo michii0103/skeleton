@@ -45,5 +45,5 @@ jobs:
             git clone https://github.com/michii0103/skeleton.git . &&
             npm install &&
             npm run build &&
-            pm2 restart skeleton
+            pm2 start ecosystem.config.js --env production
           "
