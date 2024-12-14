@@ -11,6 +11,10 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, ".."))); // __dirname zeigt auf dist/server, deshalb .. = dist
 
+app.get("/test", (req, res) => {
+  res.send("Das ist ein Test").status(200);
+});
+
 app.get("*", (_req, res) => {
   res.sendFile(path.join(__dirname, "..", "index.html"));
 });
