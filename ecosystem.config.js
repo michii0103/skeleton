@@ -1,13 +1,18 @@
-module.exports = {
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(
+    import.meta.url);
+const __dirname = dirname(__filename);
+
+export default {
     apps: [{
-        name: "skeleton", // Der Name der Anwendung in PM2
-        script: "/root/skeleton/dist/server/server.js", // Der Pfad zur Datei, die ausgeführt wird
-        instances: 1, // Anzahl der Instanzen (1 für Single-Instance)
-        exec_mode: "fork", // "fork" oder "cluster" (für Multi-Instanz)
-        interpreter: "node", // Der Node.js-Interpreter
+        name: "skeleton",
+        script: "./server.js",
+        instances: 1,
+        exec_mode: "fork",
         env: {
-            NODE_ENV: "production", // Umgebungsvariable (z. B. production oder development)
+            NODE_ENV: "production",
         },
-        watch: false // Dateiüberwachung deaktivieren (für Production)
-    }]
+    }, ],
 };
