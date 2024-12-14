@@ -32,5 +32,9 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan 45.129.183.223 >> ~/.ssh/known_hosts
           ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "mkdir -p /root/skeleton"
-          scp -i ~/.ssh/id_ed25519 -r ./dist/* root@45.129.183.223:/root/skeleton
-          ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "cd /root/skeleton && pm2 restart all"
+          scp -i ~/.ssh/id_ed25519 -r ./ root@45.129.183.223:/root/skeleton
+          ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "
+            cd /root/skeleton &&
+            npm install &&
+            pm2 restart skeleton
+          "
