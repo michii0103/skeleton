@@ -31,5 +31,5 @@ jobs:
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan 45.129.183.223 >> ~/.ssh/known_hosts
-          scp -i ~/.ssh/id_ed25519 -r ./dist/* root@45.129.183.223:/skeleton/dist
-          ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "cd /skeleton && pm2 restart all"
+          scp -i ~/.ssh/id_ed25519 -r ./dist/* root@45.129.183.223:/root/skeleton/dist
+          ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "cd /root/skeleton && pm2 restart all"
