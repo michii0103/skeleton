@@ -2,6 +2,7 @@ import { LitElement, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import "./prosemirror-editor";
 import "./x-button";
+import { socket } from "../main";
 
 @customElement("main-element")
 export class MainElement extends LitElement {
@@ -24,7 +25,15 @@ export class MainElement extends LitElement {
       Successfully deployed!
       <div class="message">${this.message}</div>
       <prosemirror-editor></prosemirror-editor>
-      <x-button> Mein Custom Button </x-button>
+      <x-button
+        @click=${() => {
+          socket.send(
+            JSON.stringify({ event: "hello", data: "Custom button press!" })
+          );
+        }}
+      >
+        Mein Custom Button
+      </x-button>
     `;
   }
 }
