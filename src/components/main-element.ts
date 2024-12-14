@@ -22,7 +22,7 @@ export class MainElement extends LitElement {
 
   render() {
     return html`
-      Successfully deployed!
+      Successfully deployed! asdasdasd
       <div class="message">${this.message}</div>
       <prosemirror-editor></prosemirror-editor>
       <x-button
