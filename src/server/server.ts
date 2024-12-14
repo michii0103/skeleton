@@ -16,16 +16,17 @@ app.get("*", (_req, res) => {
 });
 
 const server = createServer(app);
-const wss = new WebSocketServer({ server });
+const ws_server = new WebSocketServer({ server });
 
-wss.on("connection", (ws) => {
-  console.log("Client verbunden");
-  ws.on("message", (message) => {
+ws_server.on("connection", (ws_client) => {
+  ws_client.on("message", (message) => {
     const msg = JSON.parse(message.toString());
     console.log("Vom Client empfangen:", msg);
-    ws.send(JSON.stringify({ event: "response", data: `Echo: ${msg.data}` }));
+    ws_client.send(
+      JSON.stringify({ event: "response", data: `Echo: ${msg.data}` })
+    );
   });
-  ws.on("close", () => console.log("Client getrennt"));
+  ws_client.on("close", () => console.log("Client getrennt"));
 });
 
 const PORT = 8080;

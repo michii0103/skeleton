@@ -1,8 +1,10 @@
 import { LitElement, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import "./prosemirror-editor";
+import "./x-button";
 
-@customElement("my-component")
-export class MyComponent extends LitElement {
+@customElement("main-element")
+export class MainElement extends LitElement {
   @property({ type: String }) message = "Hello World";
 
   static styles = css`
@@ -19,8 +21,10 @@ export class MyComponent extends LitElement {
 
   render() {
     return html`
-      asdasdasd small change
+      asdasdasd small changeasdasdasd asdasd
       <div class="message">${this.message}</div>
+      <prosemirror-editor></prosemirror-editor>
+      <x-button> Mein Custom Button </x-button>
       ich habe hier dann hot reload
     `;
   }
