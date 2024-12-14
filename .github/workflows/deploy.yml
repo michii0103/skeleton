@@ -9,10 +9,11 @@ on:
       deploy_on_server:
         description: "Production Deployment"
         required: true
-        default: "false" # Standardmäßig PM2-Start überspringen
+        default: "false"
 
 jobs:
   deploy:
+    if: ${{ inputs.deploy_on_server == 'true' }} # Bedingung auf Job-Ebene
     runs-on: ubuntu-latest
 
     steps:
@@ -30,7 +31,6 @@ jobs:
           npm run build
 
       - name: Deploy to Server
-        if: ${{ inputs.deploy_on_server == 'true' }}
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
         run: |
