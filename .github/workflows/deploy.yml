@@ -23,28 +23,26 @@ jobs:
           npm install
           npm run build
 
-          - name: Deploy to Server
-          env:
-            SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          run: |
-            # SSH Setup
-            mkdir -p ~/.ssh
-            echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
-            chmod 600 ~/.ssh/id_ed25519
-            ssh-keyscan 45.129.183.223 >> ~/.ssh/known_hosts
+      - name: Deploy to Server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+        run: |
+          # SSH Setup
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan 45.129.183.223 >> ~/.ssh/known_host
+          # Ensure a clean /root/skeleton directory on the server
+          ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "
+            rm -rf /root/skeleton &&
+            mkdir -p /root/skeleton
 
-            # Ensure a clean /root/skeleton directory on the server
-            ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "
-              rm -rf /root/skeleton &&
-              mkdir -p /root/skeleton
-            "
-
-            # Pull latest code from GitHub
-            ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "
-              cd /root/skeleton &&
-              git clone https://github.com/michii0103/skeleton.git . &&
-              npm install &&
-              npm run build &&
-              pm2 delete all || true &&
-              pm2 start server.js --name skeleton
-            "
+          # Pull latest code from GitHub
+          ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "
+            cd /root/skeleton &&
+            git clone https://github.com/michii0103/skeleton.git . &&
+            npm install &&
+            npm run build &&
+            pm2 delete all || true &&
+            pm2 start server.js --name skeleton
+          "
