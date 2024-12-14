@@ -31,11 +31,13 @@ jobs:
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan 45.129.183.223 >> ~/.ssh/known_host
+          ssh-keyscan 45.129.183.223 >> ~/.ssh/known_hosts
+
           # Ensure a clean /root/skeleton directory on the server
           ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "
             rm -rf /root/skeleton &&
             mkdir -p /root/skeleton
+          "
 
           # Pull latest code from GitHub
           ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "
