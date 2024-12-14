@@ -24,21 +24,7 @@ app.get("*", (_req, res) => {
 
 // Server initialisieren
 let server;
-if (isProduction) {
-  // HTTPS-Server für Produktion
-  const options = {
-    key: fs.readFileSync("/etc/letsencrypt/live/codelabspace.de/privkey.pem"),
-    cert: fs.readFileSync(
-      "/etc/letsencrypt/live/codelabspace.de/fullchain.pem"
-    ),
-  };
-  server = https.createServer(options, app);
-  console.log("Server läuft im Produktionsmodus mit HTTPS");
-} else {
-  // HTTP-Server für Entwicklung
-  server = http.createServer(app);
-  console.log("Server läuft im Entwicklungsmodus mit HTTP");
-}
+server = http.createServer(app);
 
 const ws_server = new WebSocketServer({ server });
 
