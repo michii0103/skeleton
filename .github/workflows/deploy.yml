@@ -8,7 +8,7 @@ on:
     inputs:
       deploy_on_server:
         description: "Production Deployment"
-        required: false
+        required: true
         default: "false" # Standardmäßig PM2-Start überspringen
 
 jobs:
