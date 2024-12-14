@@ -30,7 +30,7 @@ ws_server.on("connection", (ws_client) => {
       `DEBUG: Vom Client empfangen: ${JSON.stringify(msg)}\n`
     );
     ws_client.send(
-      JSON.stringify({ event: "response", data: `Echo: ${msg.data}` })
+      JSON.stringify({ event: "response", data: `asdsad Echo: ${msg.data}` })
     );
   });
   ws_client.on("close", () => console.log("Client getrennt"));
