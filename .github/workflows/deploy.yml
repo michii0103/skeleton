@@ -13,9 +13,8 @@ on:
 
 jobs:
   deploy:
-    if: ${{ inputs.deploy_on_server || 'false' == 'true' }}
     runs-on: ubuntu-latest
-
+    environment: production # Environment mit Genehmigungsregel
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
