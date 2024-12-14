@@ -1,7 +1,8 @@
 import "./components/main-element.js";
 
+const wsProtocol = window.location.protocol === "https:" ? "wss" : "ws";
 const wsHost = window.location.hostname; // Dynamisch die aktuelle Domain/IP-Adresse abrufen
-export const socket = new WebSocket(`ws://${wsHost}:8080`);
+export const socket = new WebSocket(`${wsProtocol}://${wsHost}:8080`);
 export const context = ensureContext();
 
 socket.addEventListener("open", () => {
