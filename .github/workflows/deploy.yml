@@ -27,4 +27,8 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
         run: |
-          ssh root@45.129.183.223 "cd /skeleton && git pull && npm install && pm2 restart all"
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan 45.129.183.223 >> ~/.ssh/known_hosts
+          ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "cd /skeleton && git pull && npm install && pm2 restart all"
