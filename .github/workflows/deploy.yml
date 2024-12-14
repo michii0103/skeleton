@@ -45,6 +45,5 @@ jobs:
             git clone https://github.com/michii0103/skeleton.git . &&
             npm install &&
             npm run build &&
-            pm2 delete all || true &&
-            pm2 start server.js --name skeleton
+            pm2 restart skeleton
           "
