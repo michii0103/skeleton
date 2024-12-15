@@ -44,24 +44,23 @@ jobs:
       - name: Deploy to Server
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          PROJECT_NAME: ${{ github.event.inputs.project_name }}
         run: |
           # SSH Setup
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          # ssh-keyscan 45.129.183.223 >> ~/.ssh/known_hosts
+          ssh-keyscan 45.129.183.223 >> ~/.ssh/known_hosts
 
           # Clean and create project directory dynamically
           ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "
-            rm -rf /root/$PROJECT_NAME &&
-            mkdir -p /root/$PROJECT_NAME
+            rm -rf /root/skeleton &&
+            mkdir -p /root/skeleton
           "
 
           # Pull latest code and start dynamically
           ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "
-            cd /root/$PROJECT_NAME &&
-            git clone https://github.com/michii0103/$PROJECT_NAME.git . &&
+            cd /root/skeleton &&
+            git clone https://github.com/michii0103/skeleton.git . &&
             npm install &&
             npm run build &&
             pm2 start ecosystem.config.cjs --env production
