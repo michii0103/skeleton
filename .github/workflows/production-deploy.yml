@@ -1,4 +1,4 @@
-name: Deploy to Production # Der Name der gesamten Action
+name: Deploy to Production
 
 on:
   push:
@@ -10,6 +10,10 @@ on:
         description: "Production Deployment"
         required: true
         default: "false"
+      project_name:
+        description: "Project Name for Deployment"
+        required: true
+        default: "default"
 
 jobs:
   # Job 1: Image Check
@@ -29,6 +33,7 @@ jobs:
           npm install
           npm run build
 
+  # Job 2: Production Deployment
   deploy_production:
     needs: image_check # Führt Deploy nur aus, wenn der Image Check erfolgreich war
     runs-on: ubuntu-24.04
@@ -39,6 +44,7 @@ jobs:
       - name: Deploy to Server
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          PROJECT_NAME: ${{ github.event.inputs.project_name }}
         run: |
           # SSH Setup
           mkdir -p ~/.ssh
@@ -46,16 +52,16 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan 45.129.183.223 >> ~/.ssh/known_hosts
 
-          # Ensure a clean /root/skeleton directory on the server
+          # Clean and create project directory dynamically
           ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "
-            rm -rf /root/skeleton &&
-            mkdir -p /root/skeleton
+            rm -rf /root/$PROJECT_NAME &&
+            mkdir -p /root/$PROJECT_NAME
           "
 
-          # Pull latest code from GitHub
+          # Pull latest code and start dynamically
           ssh -i ~/.ssh/id_ed25519 root@45.129.183.223 "
-            cd /root/skeleton &&
-            git clone https://github.com/michii0103/skeleton.git . &&
+            cd /root/$PROJECT_NAME &&
+            git clone https://github.com/michii0103/$PROJECT_NAME.git . &&
             npm install &&
             npm run build &&
             pm2 start ecosystem.config.cjs --env production
