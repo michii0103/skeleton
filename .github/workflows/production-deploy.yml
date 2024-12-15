@@ -47,9 +47,9 @@ jobs:
           PROJECT_NAME: ${{ github.event.inputs.project_name }}
         run: |
           # SSH Setup
-          # mkdir -p ~/.ssh
-          # echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
-          # chmod 600 ~/.ssh/id_ed25519
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
           # ssh-keyscan 45.129.183.223 >> ~/.ssh/known_hosts
 
           # Clean and create project directory dynamically
