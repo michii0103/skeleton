@@ -43,6 +43,6 @@ ws_server.on("connection", (ws_client) => {
 
 // Server starten
 const PORT = 8080;
-server.listen(PORT, () => {
+server.listen(PORT, "0.0.0.0", () => {
   console.log(`Server läuft auf http://localhost:${PORT}`);
 });

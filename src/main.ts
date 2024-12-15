@@ -1,8 +1,16 @@
-import "./components/main-element.js";
+import "./components/main-element.ts";
 
 const wsProtocol = window.location.protocol === "https:" ? "wss" : "ws";
-const wsHost = window.location.host;
-export const socket = new WebSocket(`${wsProtocol}://${wsHost}/`);
+const wsHost =
+  window.location.host === "localhost:3000"
+    ? "localhost:8080"
+    : window.location.host;
+console.log(
+  "connect to: ",
+  `${wsProtocol}://${wsHost}`,
+  window.location.host === "localhost:5173"
+);
+export const socket = new WebSocket(`${wsProtocol}://${wsHost}`);
 export const context = ensureContext();
 
 socket.addEventListener("open", () => {

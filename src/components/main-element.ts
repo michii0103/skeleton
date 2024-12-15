@@ -22,9 +22,8 @@ export class MainElement extends LitElement {
 
   render() {
     return html`
-      Successfully deployed! asdasdasd
+      asdasdasdsad
       <div class="message">${this.message}</div>
-      <prosemirror-editor></prosemirror-editor>
       <x-button
         @click=${() => {
           socket.send(
@@ -34,6 +33,15 @@ export class MainElement extends LitElement {
       >
         Mein Custom Button
       </x-button>
+      asdasdasd asd
     `;
   }
 }
+
+// Erzwingt einen vollständigen Reload, wenn HMR fehlschlägt
+// if (import.meta.env.DEV && import.meta.hot) {
+//   import.meta.hot.accept(() => {
+//     console.log("Reloading due to changes in main-element.ts");
+//     window.location.reload();
+//   });
+// }

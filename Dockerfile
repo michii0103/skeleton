@@ -1,20 +1,20 @@
 FROM node:18-alpine
 
-# Arbeitsverzeichnis im Container
+# Arbeitsverzeichnis setzen
 WORKDIR /app
 
-# package.json und package-lock.json kopieren und Abhängigkeiten installieren
+# Package.json kopieren und Abhängigkeiten installieren
 COPY package*.json ./
 RUN npm install
 
-# gesamten Code kopieren
+# Projektcode kopieren
 COPY . .
 
-# Anwendung builden (Frontend + Backend)
+# Build-Prozess sicherstellen
 RUN npm run build
 
-# Exponieren Sie den Port, auf dem Ihr Server läuft (z. B. 8080)
+# Port freigeben
 EXPOSE 8080
 
-# Startbefehl: Server starten
-CMD ["node", "dist/server/server.js"]
+# Startbefehl
+CMD ["npm", "run", "dev"]
